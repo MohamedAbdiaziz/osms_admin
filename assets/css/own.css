@@ -1,0 +1,9 @@
+#imagePreview {
+  
+  width: 200px;
+  height: 200px;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  background-size: cover;
+  background-position: center;
+}
