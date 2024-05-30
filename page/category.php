@@ -1,4 +1,5 @@
 <?php 
+require_once("../classes/category.class.php");
 include_once("../component/headerhtml.php");
 
 include_once("../component/sidebar.php");
@@ -6,7 +7,12 @@ include_once("../component/sidebar.php");
 
 <div class="body-wrapper">
   <!-- Navbar Start -->
-  <?php include_once("../component/navbar.php");?>
+  <?php include_once("../component/navbar.php");
+
+
+
+  ?>
+
   <!-- Navbar end -->
 
   <div class="container-fluid">
@@ -24,49 +30,66 @@ include_once("../component/sidebar.php");
               <th>Name</th>
               <th>Description</th>
               <th>Created At</th>
-              <th>Updated</th>
+              
               <th>Status</th>
               <th>Action</th>
               
             </tr>
           </thead>
           <tbody>
+            <?php
+              
+              $objcategory = new category();
+              $categories = $objcategory->GetCategies();
+
+              foreach($categories as $key => $category){              
+            ?>
             <tr>
-                <th>6</th>
-                <th><img src="../assets/images/products/s1.jpg"  width="100" height="50"></th>
-              <td>Tiger Nixon</td>
-              <td>System Architect</td>
-              <td>2011-05-12</td>
-              <td>2011-04-25</td>
-              <td>On</td>
+                <th><?= $category['ID']?></th>
+                <th><img src="../../osm/images/Category/<?= $category['Image'];?>"  width="100" height="50"></th>
+              <td><?= $category['Name']?></td>
+              <td><?= substr($category['Description'],0,20)."..." ?></td>
+              
+              <td><?= $category['CreatedDate']?></td>
+              <td><?= $category['Status']?></td>
               <td>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CtEdit">Edit</button>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CtDelete">Edit</button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CtEdit_<?= $category['ID']?>">Edit</button>
+                <button class="btn btn-danger" onclick="removeCategory(<?= $category['ID']?>)">Delete</button>
               </td>
               <!-- Modal Edit Category -->
-              <div class="modal fade" id="CtEdit" tabindex="-1" aria-labelledby="CtEditLabel" aria-hidden="true">
+              <div class="modal fade" id="CtEdit_<?= $category['ID']?>" tabindex="-1" aria-labelledby="CtEditLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="CtEditLabel">Modal title</h5>
+                      <h5 class="modal-title" id="CtEditLabel">Update Category</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <form>
+                      <form method="POST" action="../backend/action.php" enctype="multipart/form-data">
                         <div class="mb-3">
-                          <label for="exampleInputEmail1" class="form-label">Email address</label>
-                          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                          <label for="ctName" class="form-label">Category Name</label>
+                          <input type="text" class="form-control" name="ctName" id="ctName_<?= $category['ID'] ?>" placeholder="Enter Category name" value="<?= $category['Name']?>" >           
                         </div>
                         <div class="mb-3">
-                          <label for="exampleInputPassword1" class="form-label">Password</label>
-                          <input type="password" class="form-control" id="exampleInputPassword1">
+                          <label for="ctDesc" class="form-label">Category Description</label>
+                          <textarea type="text" class="form-control" name="ctDesc" id="ctDesc_<?= $category['ID'] ?>" placeholder="Enter Category Description" ><?= $category['Description']?></textarea>      
+                        </div> 
+                        <div class="mb-3">
+                          <label for="ctStatus" class="form-label">Category Status</label>
+                          <select class="form-control" id="ctStatus_<?= $category['ID'] ?>" name="ctStatus">
+                            <option <?php if($category['Status']=="Active")?> value="Active">Active</option>
+                            <option <?php if($category['Status']=="Deactive")?> value="Deactive">Deactive</option>                            
+                          </select>
+                        </div>          
+                        <div class="mb-3">
+                          <label for="imageUpload" class="form-label">Category Image</label>
+                          <input type="file" class="form-control" value="<?= $category['Image'] ?>" name="ctImg" id="imageUpload imageUpload_<?= $category['ID'] ?>"  accept="image/*">
                         </div>
-                        <div class="mb-3 form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        <div class="mb-3">
+                          <div id="imagePreview"></div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+
+                        <button onclick="editCategory(<?= $category['ID'] ?>)" class="btn btn-primary">Submit</button>
                       </form>
                     </div>
                     <div class="modal-footer">
@@ -75,27 +98,10 @@ include_once("../component/sidebar.php");
                   </div>
                 </div>
               </div>
-              <!-- Modal Delete Category -->
-              <div class="modal fade" id="CtDelete" tabindex="-1" aria-labelledby="CtDeleteLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="CtDeleteLabel">Modal title</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <form>
-                        
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
             </tr>
+
+          <?php } ?>
             
            
             
@@ -103,11 +109,11 @@ include_once("../component/sidebar.php");
           <tfoot>
             <tr>
               <th>Category ID</th>
-              <th>Image</th>
+                <th>Image</th>
               <th>Name</th>
               <th>Description</th>
               <th>Created At</th>
-              <th>Age</th>
+              
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -150,6 +156,92 @@ $(document).ready(function() {
 
 </script>
 
+
+<script>
+    function removeCategory(CtID) {
+      // body...
+      if (confirm("Are you sure you want to delete this category?")) {
+
+        $.ajax({
+          url: "../backend/action.php",
+          data: "CtID=" + CtID + "&action=removeCategory",
+          method: "post"
+        }).done(function(response){
+          try {
+            var data = JSON.parse(response);
+            if (data.status == 1) {
+              location.reload();
+              alert('Delete Successfull');
+            }
+             else {              
+              alert('Failed To delete Category');
+            }
+          } catch (e) {
+            alert('Failed to parse JSON response: '+response);
+          }
+        })
+
+        
+      }
+    }
+    
+  </script>
+
+<script>
+        function editCategory(categoryId) {
+            // Get input values
+            var formData = new FormData();
+            formData.append("action", "updateCategory");
+            formData.append("id", categoryId);
+
+            var name = document.getElementById("ctName_" + categoryId).value;
+            var description = document.getElementById("ctDesc_" + categoryId).value;
+            var status = document.getElementById("ctStatus_" + categoryId).value;
+            var image = document.getElementById("imageUpload_" + categoryId).files[0];
+
+            // Prepare data to be sent in the AJAX request
+            // var data = "action=updateCategory&id=" + categoryId;
+            if (name) formData.append("name", name);
+            if (description) formData.append("description", description);
+            if (status) formData.append("status", status);
+            if (image) formData.append("image", image);
+            console.log(formData);
+
+            // $.ajax({
+            //   url: "../backend/action.php",
+            //   data: formData,
+            //   method: "post"
+            // }).done(function(response){
+            //   try {
+            //     var data = JSON.parse(response);
+            //     if (data.status == 1) {
+            //       location.reload();
+            //       alert('Updatw Successfull');
+            //     }
+            //      else {              
+            //       alert('Failed To Updatw Category');
+            //     }
+            //   } catch (e) {
+            //     alert('Failed to parse JSON response: '+response);
+            //   }
+            // })
+
+            // var xhr = new XMLHttpRequest();
+            // xhr.open("POST", "../backend/action.php", true);
+            // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            // xhr.onreadystatechange = function () {
+            //     if (xhr.readyState === 4 && xhr.status === 200) {
+            //         var response = JSON.parse(xhr.responseText);
+            //         if (response.success) {
+            //             alert("Category updated successfully!");
+            //         } else {
+            //             alert("Failed to update category: " + response.message);
+            //         }
+            //     }
+            // };
+            // xhr.send(formData);
+        }
+    </script>
 
 
 <?php include_once("../component/footerhtml.php");?>

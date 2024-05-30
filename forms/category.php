@@ -6,7 +6,21 @@ include_once("../component/sidebar.php");
 
 <div class="body-wrapper">
   <!--  navbar Start -->
-  <?php include_once("../component/navbar.php");?>
+  <?php include_once("../component/navbar.php");
+  if (isset($_SESSION['failed_to_upload'])) {
+    echo $_SESSION['failed_to_upload'];
+    // unset($_SESSION['failed_to_upload']);
+  }
+  if (isset($_SESSION['Action'])) {
+    echo $_SESSION['Action'];
+    unset($_SESSION['Action']);
+  }
+  if (isset($_SESSION['Failed'])) {
+    echo $_SESSION['Failed'];
+    // unset($_SESSION['Failed']);
+  }
+
+  ?>
   <!-- navbar end -->
 
   <div class="container-fluid">
@@ -14,7 +28,7 @@ include_once("../component/sidebar.php");
     <h5 class="card-title fw-semibold mb-4">Add Category</h5>
     <div class="card">
       <div class="card-body">
-        <form method="POST" action="../backend/action.php">
+        <form method="POST" action="../backend/action.php" enctype="multipart/form-data">
           <div class="mb-3">
             <label for="ctName" class="form-label">Category Name</label>
             <input type="text" class="form-control" name="ctName" id="ctName" placeholder="Enter Category name" required>           
@@ -24,8 +38,8 @@ include_once("../component/sidebar.php");
             <textarea type="text" class="form-control" name="ctDesc" id="ctDesc" placeholder="Enter Category Description" ></textarea>      
           </div>          
           <div class="mb-3">
-            <label for="PtDesc" class="form-label">Product Description</label>
-            <input type="file" class="form-control" id="imageUpload" required accept="image/*">
+            <label for="imageUpload" class="form-label">Category Image</label>
+            <input type="file" class="form-control" name="ctImg" id="imageUpload" required accept="image/*">
           </div>
           <div class="mb-3">
             <div id="imagePreview"></div>

@@ -16,6 +16,16 @@
   <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
   <script src="../assets/js/own.js"></script>
+
+  <!-- <script>
+    function Nme(argument) {
+      // body...
+      console.log("testing");
+    }
+    Nme();
+  </script> -->
+
+
   
 
 </body>
