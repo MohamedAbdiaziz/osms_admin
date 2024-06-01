@@ -8,7 +8,18 @@ include_once("../component/sidebar.php");
 <div class="body-wrapper">
   <!-- Navbar Start -->
   <?php include_once("../component/navbar.php");
-
+if (isset($_SESSION['failed_to_upload'])) {
+    echo $_SESSION['failed_to_upload'];
+    // unset($_SESSION['failed_to_upload']);
+  }
+  if (isset($_SESSION['Action'])) {
+    echo $_SESSION['Action'];
+    unset($_SESSION['Action']);
+  }
+  if (isset($_SESSION['Failed'])) {
+    echo $_SESSION['Failed'];
+    // unset($_SESSION['Failed']);
+  }
 
 
   ?>
@@ -66,6 +77,7 @@ include_once("../component/sidebar.php");
                     </div>
                     <div class="modal-body">
                       <form method="POST" action="../backend/action.php" enctype="multipart/form-data">
+                        <input type="text" name="ctID" hidden  value="<?= $category['ID']?>" > 
                         <div class="mb-3">
                           <label for="ctName" class="form-label">Category Name</label>
                           <input type="text" class="form-control" name="ctName" id="ctName_<?= $category['ID'] ?>" placeholder="Enter Category name" value="<?= $category['Name']?>" >           
@@ -89,7 +101,7 @@ include_once("../component/sidebar.php");
                           <div id="imagePreview"></div>
                         </div>
 
-                        <button onclick="editCategory(<?= $category['ID'] ?>)" class="btn btn-primary">Submit</button>
+                        <button type="submit" name="updateCategory" class="btn btn-primary">Submit</button>
                       </form>
                     </div>
                     <div class="modal-footer">

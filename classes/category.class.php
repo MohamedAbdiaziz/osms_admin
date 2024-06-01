@@ -81,36 +81,50 @@
 
 
 
-		public function updateCategory($categoryId, $fields)
+		// public function updateCategory($categoryId, $fields)
+		// {
+		// 	$set = [];
+	    //     $params = [];
+	    //     $types = '';
+
+	    //     foreach ($fields as $field => $value) {
+	    //         $set[] = "$field = ?";
+	    //         $params[] = $value;
+	    //         $types .= 's';
+        // 	}
+
+        // 	$params[] = $categoryId;
+        // 	$types .= 'i';
+
+        // 	$sql = "UPDATE tblcategory SET " . implode(", ", $set) . " WHERE ID = ?";
+	    //     $stmt = $this->conn->prepare($sql);
+
+	    //     if (!$stmt) {
+	    //         return ["success" => false, "message" => "Preparation failed: " . $this->conn->error];
+	    //     }
+
+	    //     $stmt->bind_param($types, ...$params);
+
+	    //     if ($stmt->execute()) {
+	    //         return ["success" => true];
+	    //     } else {
+	    //         return ["success" => false, "message" => "Execution failed: " . $stmt->error];
+	    //     }
+
+		// }
+
+		public function UpdateCategory()
 		{
-			$set = [];
-	        $params = [];
-	        $types = '';
-
-	        foreach ($fields as $field => $value) {
-	            $set[] = "$field = ?";
-	            $params[] = $value;
-	            $types .= 's';
-        	}
-
-        	$params[] = $categoryId;
-        	$types .= 'i';
-
-        	$sql = "UPDATE tblcategory SET " . implode(", ", $set) . " WHERE ID = ?";
-	        $stmt = $this->conn->prepare($sql);
-
-	        if (!$stmt) {
-	            return ["success" => false, "message" => "Preparation failed: " . $this->conn->error];
-	        }
-
-	        $stmt->bind_param($types, ...$params);
-
-	        if ($stmt->execute()) {
-	            return ["success" => true];
-	        } else {
-	            return ["success" => false, "message" => "Execution failed: " . $stmt->error];
-	        }
-
+			$sql = "SET @p0='$this->id'; SET @p1='$this->name'; SET @p2='$this->description'; SET @p3='$this->status'; SET @p4='$this->image'; CALL `UpdateCategory`(@p0, @p1, @p2, @p3, @p4);";
+		 	$stmt = $this->dbConn->prepare($sql);
+		 	
+		 	
+		 	if($stmt->execute()){
+		 		return true;
+		 	}
+		 	else{
+		 		return false;
+		 	}
 		}
 
 	}
