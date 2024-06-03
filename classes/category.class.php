@@ -72,7 +72,7 @@
 
 		public function GetCategies()
 		{
-			$sql = "SELECT * FROM tblcategory WHERE Status = 'Active'";
+			$sql = "SELECT * FROM tblcategory";
 			$stmt = $this->dbConn->prepare($sql);
 			$stmt->execute();
 			$categories = $stmt->fetchAll(PDO::FETCH_ASSOC);

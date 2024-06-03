@@ -95,7 +95,7 @@ if (isset($_SESSION['failed_to_upload'])) {
                         </div>          
                         <div class="mb-3">
                           <label for="imageUpload" class="form-label">Category Image</label>
-                          <input type="file" class="form-control" value="<?= $category['Image'] ?>" name="ctImg" id="imageUpload imageUpload_<?= $category['ID'] ?>"  accept="image/*">
+                          <input type="file" class="form-control" value="<?= $category['Image'] ?>" name="ctImg" id="imageUpload"  accept="image/*">
                         </div>
                         <div class="mb-3">
                           <div id="imagePreview"></div>
@@ -172,11 +172,12 @@ $(document).ready(function() {
 <script>
     function removeCategory(CtID) {
       // body...
-      if (confirm("Are you sure you want to delete this category?")) {
+      alert("Before You delete this category  Remember all products in this category will be deleted!!!");
+      if (confirm("Are you sure you want to delete this category? ")) {
 
         $.ajax({
           url: "../backend/action.php",
-          data: "CtID=" + CtID + "&action=removeCategory",
+          data: "CtID=" + CtID + "&ctremove=removeCategory",
           method: "post"
         }).done(function(response){
           try {
