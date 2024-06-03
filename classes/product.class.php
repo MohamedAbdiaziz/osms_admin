@@ -108,5 +108,36 @@
 	 		return "Failed";
 	 	}
     }
+    public function updateProduct($productID, $name, $description, $categoryID, $type, $color, $size, $price, $status, $image)
+    {
+    	$sql = "UPDATE `tblproduct` SET 
+    	`ProductName` = :Name, 
+    	`Description` = :Description, 
+    	`Category` = :Category, 
+    	`Status` = :Status, 
+    	`Type` = :Type, 
+    	`Color` = :Color, 
+    	`Size` = :Size, 
+    	`Price` = :Price, 
+    	`Image` = :Image 
+    	WHERE `tblproduct`.`ID` = :id";
+	 	$stmt = $this->dConn->prepare($sql);
+	 	$stmt->bindParam('id', $productID);
+	 	$stmt->bindParam('Name', $name);
+	 	$stmt->bindParam('Description', $description);
+	 	$stmt->bindParam('Category', $categoryID);
+	 	$stmt->bindParam('Status', $status);
+	 	$stmt->bindParam('Type', $type);
+	 	$stmt->bindParam('Color', $color);
+	 	$stmt->bindParam('Size', $size);
+	 	$stmt->bindParam('Price', $price);	 	
+	 	$stmt->bindParam('Image', $image);
+	 	if($stmt->execute()){
+	 		return "Success";
+	 	}
+	 	else{
+	 		return "Failed";
+	 	}
+    }
   }
 ?>

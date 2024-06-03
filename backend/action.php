@@ -20,10 +20,14 @@ elseif (isset($_POST['updateCategory'])) {
   exit();
 }elseif (isset($_POST['productform'])) {
     handleProductForm();
-    exit();
+    
 }
-elseif ($_GET['prodDelete']) {
+elseif (isset($_GET['prodDelete'])) {
     removeProd();
+}
+elseif (isset($_POST['updateProduct'])) {
+  updateProduct();
+
 }
 else{
     $_SESSION['Action']= "Failed To create category";
@@ -306,8 +310,7 @@ else{
   }
 
 
-  function removeProd()
-  {
+  function removeProd(){
     $product = new product();
     $product->setId($_GET['prodDelete']);
     if($product->DeleteProduct()){
@@ -324,6 +327,84 @@ else{
   }
   
 
+  function updateProduct() {
+    $objProduct = new Product();
+    $productID = $_POST['prodID'];
+    $name = $_POST['prodName'];
+    $description = $_POST['prodDesc'];
+    $categoryID = $_POST['prodCategory'];
+    $type = $_POST['prodType'];
+    $color = $_POST['prodColor'];
+    $size = $_POST['prodSize'];
+    $price = $_POST['prodPrice'];
+    $status = $_POST['prodStatus'];
+    $existingImg = $_POST['existingImg'];
+    
+    $image = $_FILES['prodImg']['name'];
+    $targetDir = "../../osm/images/Category/";
+    $targetFile = $targetDir . basename($image);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
+    
+      
+
+
+    // Check if image file is a actual image or fake image
+    if ($image) {
+        $check = getimagesize($_FILES['prodImg']['tmp_name']);
+        if ($check === false) {
+            $_SESSION['failed_to_upload'] = "File is not an image.";
+            $uploadOk = 0;
+        }
+
+        // Check if file already exists
+        if (file_exists($targetFile)) {
+            $_SESSION['failed_to_upload'] = "Sorry, file already exists.";
+            $uploadOk = 0;
+        }
+
+        // Check file size
+        if ($_FILES['prodImg']['size'] > 500000) {
+            $_SESSION['failed_to_upload'] = "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+
+        // Allow certain file formats
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif") {
+            $_SESSION['failed_to_upload'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+        }
+
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            $_SESSION['failed_to_upload'] = "Sorry, your file was not uploaded.";
+        } else {
+            if (move_uploaded_file($_FILES['prodImg']['tmp_name'], $targetFile)) {
+                $_SESSION['Action'] = "The file ". htmlspecialchars(basename($image)). " has been uploaded.";
+            } else {
+                $_SESSION['failed_to_upload'] = "Sorry, there was an error uploading your file.";
+            }
+        }
+    } else {
+        $image = $existingImg;
+    }
+
+    
+    $result = $objProduct->updateProduct($productID, $name, $description, $categoryID, $type, $color, $size, $price, $status, $image);
+
+    if ($result=="Success") {
+        $_SESSION['Action'] = "Product updated successfully.";
+    } else {
+        $_SESSION['Failed'] = "Failed to update product.";
+    }
+
+    header("Location: ../page/product.php");
+    exit();
+  }
+
+
+exit();
 
 ?>
