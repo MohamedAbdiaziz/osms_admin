@@ -39,6 +39,63 @@
 	        
 	        return $stock;
 	    }
+	    public function updateStock()
+	    {
+
+	    	try {
+			    // Start the transaction
+			    $this->dConn->beginTransaction();
+
+			    // Execute the first update query
+			    $stmt1 = $this->dConn->prepare("UPDATE tblstock SET Quantity = :quantity WHERE ID = :id");
+			    $stmt1->bindParam('quantity',$this->quantity);
+			    $stmt1->bindParam('id',$this->id);
+			    $stmt1->execute();
+
+			    // Execute the second update query
+			    $stmt2 = $this->dConn->prepare("
+			        UPDATE tblcartitem c
+			        JOIN tblstock s ON s.Product = c.Product
+			        JOIN tblproduct p ON p.ID = c.Product
+			        SET c.Quantity = s.Quantity, c.Subtotal = s.Quantity * p.Price
+			        WHERE c.Quantity > s.Quantity
+			    ");
+			    $stmt2->execute();
+
+			    // Commit the transaction
+			    $this->dConn->commit();
+			    
+			    return true;
+			} catch (PDOException $e) {
+			    // Rollback the transaction if an error occurred
+			    $pdo->rollBack();
+			    
+			    return false;
+			}
+	    	// $sql = "UPDATE tblstock SET Quantity=:quantity where ID = :id";
+	    	// $stmt = $this->dConn->prepare($sql);
+	    	// $stmt->bindParam('quantity',$this->quantity);
+	    	// $stmt->bindParam('id',$this->id);
+	    	// if($stmt->execute()){
+	 		// return "Success";
+		 	// }
+		 	// else{
+		 	// 	return "Failed";
+		 	// }
+	    }
+	    public function removeStock()
+	    {
+	    	$sql = "DELETE FROM tblstock where ID = :id";
+	    	$stmt = $this->dConn->prepare($sql);
+	    	
+	    	$stmt->bindParam('id',$this->id);
+	    	if($stmt->execute()){
+	 		return "Success";
+		 	}
+		 	else{
+		 		return "Failed";
+		 	}
+	    }
 	}
 		
 
