@@ -105,9 +105,12 @@ include_once("../component/sidebar.php");
                         <div class="mb-3">
                           <label for="prodType" class="form-label">Type</label>
                           <select class="form-control" name="prodType" id="prodType_<?= $product['ID']?>" required>
-                            <option value="Type1" <?= $product['Type'] == 'Type1' ? 'selected' : ''?>>Type1</option>
-                            <option value="Type2" <?= $product['Type'] == 'Type2' ? 'selected' : ''?>>Type2</option>
+                            <option value="Glasses" <?= $product['Type'] == 'Glasses' ? 'selected' : ''?>>Glasses</option>
+                            <option value="Contact Lenses"<?= $product['Type'] == 'Contact Lenses' ? 'selected' : ''?>>Contact Lenses</option>
+                            <option value="Sunglasses"<?= $product['Type'] == 'Sunglasses' ? 'selected' : ''?>>Sunglasses</option>
+                            <option value="Accessories"<?= $product['Type'] == 'Accessories' ? 'selected' : ''?>>Accessories</option>
                           </select>
+                          
                         </div>
                         <div class="mb-3">
                           <label for="prodColor" class="form-label">Color</label>

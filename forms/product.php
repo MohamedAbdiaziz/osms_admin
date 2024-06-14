@@ -50,7 +50,7 @@ include_once("../component/sidebar.php");
           </div>
           <div class="mb-3">
             <label for="prodPrice" class="form-label">Product Price</label>
-            <input type="number" class="form-control" name="prodPrice" id="prodPrice" placeholder="Enter Product Price" required>
+            <input type="number" min="0" value="0" step="any" class="form-control" name="prodPrice" id="prodPrice" placeholder="Enter Product Price" required>
           </div>
           <div class="mb-3">
             <label for="prodType" class="form-label">Product Type</label>

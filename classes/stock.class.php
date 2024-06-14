@@ -96,6 +96,42 @@
 		 		return "Failed";
 		 	}
 	    }
+	    public function insertStock()
+	    {
+	    	$sql = "INSERT INTO tblstock (Product,Quantity) VALUES(:prodId,:quantity)";
+	    	$stmt = $this->dConn->prepare($sql);
+	    	
+	    	$stmt->bindParam('prodId',$this->productid);
+	    	$stmt->bindParam('quantity',$this->quantity);
+	    	if($stmt->execute()){
+	 			return true;
+		 	}
+		 	else{
+		 		return false;
+		 	}
+	    }
+	    // New method to get products already in stock
+	    public function getProductsInStock() {
+		    // Prepare and execute the query to fetch all rows from tblstock
+		    $sql = "SELECT Product FROM tblstock";
+		    $stmt = $this->dConn->prepare($sql);
+		    $stmt->execute();
+		    
+		    // Fetch all rows into an associative array
+		    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		    // Initialize an empty array to hold the product IDs
+		    $productIDs = [];
+
+		    // Loop through each row and add the Product ID to the productIDs array
+		    foreach($rows as $row) {
+		        $productIDs[] = $row['Product']; // Ensure 'Product' is the correct column name
+		    }
+
+		    // Return the array of product IDs that are in stock
+		    return $productIDs;
+		}
+
 	}
 		
 

@@ -27,7 +27,61 @@
 
 
   
+<?php
+  
+  $objProduct = new product();
+  $productsData = $objProduct->bestChartProduct();
+  $productNames = [];
+  $salesCounts = [];
 
+  foreach ($productsData as $product) {
+      $productNames[] = $product['ProductName'];
+      $salesCounts[] = $product['SalesCount'];
+  }
+?>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript">
+  <?php echo json_encode($productNames); ?>
+<?php echo json_encode($salesCounts); ?>;
+  const productNames = <?php echo json_encode($productNames); ?>;
+  const salesCounts = <?php echo json_encode($salesCounts); ?>;
+  const ctx = document.getElementById('mychart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: productNames, // Use PHP array for labels
+      datasets: [{
+        label: 'Sales Count',
+        data: salesCounts, // Use PHP array for data values
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)', // Example colors
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgb(255, 99, 132)', // Example colors
+          'rgb(54, 162, 235)',
+          'rgb(255, 206, 86)',
+          'rgb(75, 192, 192)',
+          'rgb(153, 102, 255)',
+          'rgb(255, 159, 64)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
 </body>
 
 </html>

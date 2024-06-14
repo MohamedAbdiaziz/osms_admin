@@ -76,7 +76,7 @@
 
     public function InsertProduct()
     {
-    	$sql = "INSERT INTO `tblproduct` VALUES (NULL,:Name, :Description, :Category, now(), current_timestamp(), :Status, :Type, :Color, :Size, :Price, :Image);";
+    	$sql = "INSERT INTO `tblproduct` VALUES (NULL,:Name, :Description, :Category, now(), current_timestamp(), :Status, :Type, :Color, :Size, :Price, :Image,0);";
 	 	$stmt = $this->dConn->prepare($sql);
 	 	$stmt->bindParam('Name', $this->productName);
 	 	$stmt->bindParam('Description', $this->description);
@@ -138,6 +138,52 @@
 	 	else{
 	 		return "Failed";
 	 	}
+    }
+    public function bestChartProduct(){
+      $sql = "SELECT ProductName, SalesCount FROM tblProduct ORDER BY SalesCount DESC LIMIT 6";
+      $stmt = $this->dConn->prepare($sql);
+      $stmt->execute();
+      $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $products;
+    }
+    public function CurrentYearAmount(){
+      $sql = "SELECT 
+        ROUND((current_year_sum / (current_year_sum + last_year_sum)) * 100,2) AS percentage, Current_year_amount
+        FROM (
+            SELECT 
+                SUM(CASE WHEN YEAR(created_at) = YEAR(CURDATE()) THEN amount ELSE 0 END) AS current_year_sum,
+                SUM(CASE WHEN YEAR(created_at) = YEAR(CURDATE()) - 1 THEN amount ELSE 0 END) AS last_year_sum,
+              SUM(CASE WHEN YEAR(created_at) = YEAR(cURDATE()) THEN amount ELSE 0 END) AS Current_year_amount
+            FROM transactions
+        ) AS totals;
+        ";
+      $stmt = $this->dConn->prepare($sql);
+      $stmt->execute();
+      $products = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $products;
+    }
+    public function CurrentMonthAmount(){
+      $sql = "SELECT 
+        ROUND((current_month_sum / (current_month_sum + last_month_sum)) * 100,2) AS percentage, Current_month_amount
+        FROM (
+            SELECT 
+                SUM(CASE WHEN MONTH(created_at) = MONTH(CURDATE()) THEN amount ELSE 0 END) AS current_month_sum,
+                SUM(CASE WHEN MONTH(created_at) = MONTH(CURDATE()) - 1 THEN amount ELSE 0 END) AS last_month_sum,
+              SUM(CASE WHEN MONTH(created_at) = MONTH(cURDATE()) THEN amount ELSE 0 END) AS Current_month_amount
+            FROM transactions
+        ) AS totals;
+        ";
+      $stmt = $this->dConn->prepare($sql);
+      $stmt->execute();
+      $products = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $products;
+    }
+    public function TransactionRecent(){
+      $sql = "SELECT id, customer_id, stripe_session_id, amount, created_at, status FROM transactions  ORDER BY `transactions`.`id` DESC LIMIT 4 ";
+      $stmt = $this->dConn->prepare($sql);
+      $stmt->execute();
+      $transaction = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $transaction;
     }
   }
 ?>

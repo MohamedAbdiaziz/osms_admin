@@ -3,6 +3,7 @@
   // import class
   require_once("../classes/category.class.php");
   require_once("../classes/product.class.php");
+  require_once("../classes/stock.class.php");
   include_once("./connection.php");
 
   // object of category
@@ -28,6 +29,14 @@ elseif (isset($_GET['prodDelete'])) {
 elseif (isset($_POST['updateProduct'])) {
   updateProduct();
 
+}elseif(isset($_POST['updateStock'])){
+  updateStock();
+}
+elseif (isset($_GET['removeStock'])){
+    removeStock();
+}
+elseif(isset($_POST['Stockform'])){
+  Stockform();
 }
 else{
     $_SESSION['Action']= "Failed To create category";
@@ -404,6 +413,51 @@ else{
     exit();
   }
 
+  function updateStock(){
+    $objStock = new stock();
+    $objStock->setId($_POST['stockID']);
+    $objStock->setQuantity($_POST['stockQuantity']);
+    // echo $objStock->getId();
+    $result = $objStock->updateStock();
+    if($result == "Success"){
+      $_SESSION['Action'] = "<script>"."alert('Success, stock updated.')"."</script>";
+      header("location: ../page/stock.php");
+    }
+    else{
+      $_SESSION['Action'] = "<script>"."alert('Failed, Stock update.')"."</script>";
+      header("location: ../page/stock.php");
+    }
+  }
+
+  function removeStock(){
+    $stock = new stock();
+    $stock->setId($_GET['removeStock']);
+    // echo $stock->getId();
+    if($stock->removeStock()){
+      $_SESSION['Action'] = "<script>"."alert('Success, stock Deleted.')"."</script>";
+      header("location: ../page/stock.php");
+    }else{
+      $_SESSION['Action'] = "<script>"."alert('Failed, stock Delete.')"."</script>";
+      header("location: ../page/stock.php");
+    }
+
+  }
+  function Stockform()
+  {
+    $objStock = new stock();
+    $objStock->setProdId($_POST['PrName']);
+    $objStock->setQuantity($_POST['PtQuantity']);
+
+    if($objStock->insertStock()){
+      $_SESSION['Action'] = "<script>"."alert('Success, stock Inserted.')"."</script>";
+      header("location: ../forms/stock.php");
+    }
+    else{
+      $_SESSION['Action'] = "<script>"."alert('Failed, stock Insert.')"."</script>";
+      header("location: ../forms/stock.php");
+    }
+    
+  }
 
 exit();
 
