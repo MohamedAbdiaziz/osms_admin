@@ -64,24 +64,17 @@
             <!-- Payment & Transaction cap -->
             <li class="nav-small-cap">
               <i class="fas fa-ellipsis-h nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">Payment & Transaction</span>
+              <span class="hide-menu">Transaction</span>
             </li>
             <li class="sidebar-item">
               <a class="sidebar-link" href="<?php echo $URL?>payment.php" aria-expanded="false">
-                <span>
-                  <i class="fas fa-credit-card"></i>
-                </span>
-                <span class="hide-menu">Manage Payment</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./index.html" aria-expanded="false">
-                <span>
+                 <span>
                   <i class="fas fa-exchange-alt"></i>
                 </span>
                 <span class="hide-menu">Transactions</span>
               </a>
             </li>
+            
             <!-- End Payment & Transaction Cap -->
 
             <!-- Order & Delivery cap -->
@@ -90,21 +83,21 @@
               <span class="hide-menu">Order & Delivery</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./index.html" aria-expanded="false">
+              <a class="sidebar-link" href="./order.php" aria-expanded="false">
                 <span>
                   <i class="fas fa-shopping-cart"></i>
                 </span>
                 <span class="hide-menu">Manage Order</span>
               </a>
             </li>
-            <li class="sidebar-item">
+            <!-- <li class="sidebar-item">
               <a class="sidebar-link" href="./index.html" aria-expanded="false">
                 <span>
                   <i class="fas fa-truck"></i>
                 </span>
                 <span class="hide-menu">Delivery</span>
               </a>
-            </li>
+            </li> -->
             <!-- End Order & Delivery Cap -->
 
             <!-- Customer & User cap -->

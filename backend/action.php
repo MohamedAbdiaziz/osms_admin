@@ -4,6 +4,7 @@
   require_once("../classes/category.class.php");
   require_once("../classes/product.class.php");
   require_once("../classes/stock.class.php");
+  require_once("../classes/order.class.php");
   include_once("./connection.php");
 
   // object of category
@@ -37,6 +38,18 @@ elseif (isset($_GET['removeStock'])){
 }
 elseif(isset($_POST['Stockform'])){
   Stockform();
+}
+elseif(isset($_POST['updateTransactionStatus'])){
+    updatetransaction();
+}
+elseif(isset($_POST['trans_delete'])){
+    deletetransaction();
+}
+elseif(isset($_POST['deleteOrder'])){
+  deleteOrder();
+}
+elseif(isset($_POST['updateOrderStatus'])){
+  updateOrderStatus();
 }
 else{
     $_SESSION['Action']= "Failed To create category";
@@ -458,6 +471,74 @@ else{
     }
     
   }
+  function updatetransaction()
+  {
+    // echo $_POST['TxStatus'];
+    // echo  $_POST['trans_id'];
+    // exit();
+    require_once("../classes/transaction.class.php");
+    $objTrans = new transaction();
+    $objTrans->setStatus($_POST['TxStatus']);
+    $objTrans->setId($_POST['trans_id']);
+    if($objTrans->updateTransaction()){
+      $_SESSION['Action'] = "<script>"."alert('Success, transaction Updated.')"."</script>";
+      header("location: ../page/payment.php");
+    }
+    else{
+      $_SESSION['Action'] = "<script>"."alert('Failed, transaction update.')"."</script>";
+      header("location: ../page/payment.php");
+    }
+    
+  }
+  function deletetransaction()
+  {
+    // echo $_POST['TxStatus'];
+    // echo  $_POST['trans_id'];
+    // exit();
+    require_once("../classes/transaction.class.php");
+    $objTrans = new transaction();
+    // $objTrans->setStatus($_POST['TxStatus']);
+    $objTrans->setId($_POST['trans_id']);
+    if($objTrans->deleteTransaction()){
+      $_SESSION['Action'] = "<script>"."alert('Success, transaction deleted.')"."</script>";
+      header("location: ../page/payment.php");
+    }
+    else{
+      $_SESSION['Action'] = "<script>"."alert('Failed, transaction delete.')"."</script>";
+      header("location: ../page/payment.php");
+    }
+    
+  }
+  function deleteOrder()
+  {
+    $objOrder = new order();
+    $objOrder->setId($_POST['order_id']);
+    if($objOrder->deleteOrder()){
+      $_SESSION['Action'] = "<script>"."alert('Success, Order deleted.')"."</script>";
+      header("location: ../page/order.php");
+    }
+    else{
+      $_SESSION['Action'] = "<script>"."alert('Failed, Order delete.')"."</script>";
+      header("location: ../page/order.php");
+    }
+    
+  }
+  function updateOrderStatus()
+  {
+    $objOrder = new order();
+    $objOrder->setId($_POST['order_id']);
+    $objOrder->setStatus($_POST['OrderStatus']);
+    if($objOrder->updateOrderStatus()){
+      $_SESSION['Action'] = "<script>"."alert('Success, Order Updated.')"."</script>";
+      header("location: ../page/order.php");
+    }
+    else{
+      $_SESSION['Action'] = "<script>"."alert('Failed, Order Update.')"."</script>";
+      header("location: ../page/order.php");
+    }
+    
+  }
+
 
 exit();
 

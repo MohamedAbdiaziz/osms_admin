@@ -1,4 +1,6 @@
 <?php include_once("../backend/connection.php");?>
+
+<?php require_once("../classes/product.class.php");?>
 <!doctype html>
 <html lang="en">
 

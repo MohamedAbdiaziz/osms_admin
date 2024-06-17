@@ -1,5 +1,5 @@
 <?php include_once("../component/headerhtml.php");?>
-<?php require_once("../classes/product.class.php");?>
+
     <!-- Sidebar Start -->
     <?php include_once("../component/sidebar.php");?>
     <!--  Sidebar End -->
