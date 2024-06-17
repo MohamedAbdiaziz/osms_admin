@@ -23,6 +23,13 @@ class Order {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getOrderById() {
+        $sql = "SELECT *, t.stripe_session_id FROM tblorder o JOIN transactions t ON t.ID = o.Transaction WHERE o.ID = :id";
+        $stmt = $this->dConn->prepare($sql);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
     public function updateOrderStatus() {
         $sql = "UPDATE tblorder SET status = :status WHERE id = :id";

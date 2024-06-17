@@ -51,6 +51,7 @@ $orders = $objOrder->getAllOrders();
                     <button class="btn btn-dark view-items-btn" data-order-id="<?php echo $order['ID']; ?>">View Items</button>
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#OrderEdit<?php echo $order['ID']; ?>">Edit</button>
                     <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#OrderDelete<?php echo $order['ID']; ?>">Delete</button>
+                    <a href="generate_invoice.php?order_id=<?php echo $order['ID']; ?>" class="btn btn-secondary">Download Invoice</a>
                   </td>
 
                   <!-- Modal Edit Order -->
