@@ -48,7 +48,7 @@ class Admin
         $stmt = $this->dbConn->prepare($sql);
         $stmt->bindParam(':name', $this->name);
         $stmt->bindParam(':email', $this->email);
-        $stmt->bindParam(':password', password_hash($this->password, PASSWORD_BCRYPT));
+        $stmt->bindParam(':password', $this->password);
         $stmt->bindParam(':phone', $this->phone);
         $stmt->bindParam(':address', $this->address);
         $stmt->bindParam(':role', $this->role);
@@ -101,18 +101,13 @@ class Admin
         }
     }
 
-    public function UpdateAdminPassword($newPassword)
+    public function updateAdminPassword($adminID, $hashedPassword)
     {
-        $sql = "UPDATE admins SET password = :password WHERE id = :id";
+        $sql = "UPDATE admins SET password = :Password WHERE id = :ID";
         $stmt = $this->dbConn->prepare($sql);
-        $stmt->bindParam(':password', password_hash($newPassword, PASSWORD_BCRYPT));
-        $stmt->bindParam(':id', $this->id);
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+        $stmt->bindParam(':Password', $hashedPassword);
+        $stmt->bindParam(':ID', $adminID);
+        return $stmt->execute();
     }
     public function getAdminById($id)
     {

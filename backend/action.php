@@ -558,7 +558,7 @@ else{
     $admin->setphone($_POST['adminPhone']);
     $admin->setaddress($_POST['adminAddress']);
     // $admin->setstatus($_POST['adminStatus']);
-    $admin->setpassword(password_hash($_POST['adminPassword'], PASSWORD_BCRYPT));
+    $admin->setpassword(md5($_POST['adminPassword']));
     $admin->setRole($_POST['adminRole']);
 
     $result = $admin->InsertAdmin();
