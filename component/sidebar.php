@@ -106,7 +106,7 @@
               <span class="hide-menu">Customer & User</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="<?php echo $URL?>customer.php" aria-expanded="false">
+              <a class="sidebar-link" href="<?php echo $URL?>customer_management.php" aria-expanded="false">
                 <span>
                   <i class="fas fa-users"></i>
                 </span>
@@ -114,12 +114,9 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="<?php echo $URL?>user.php" aria-expanded="false">
+              <a class="sidebar-link" href="<?php echo $URL?>admin_management.php" aria-expanded="false">
                 <span>
-                  <i class="fas fa-userHere's the continuation of the updated HTML code:
-
-        ```html
-                "></i>
+                  <i class="fas fa-user"></i>
                 </span>
                 <span class="hide-menu">Manage User</span>
               </a>

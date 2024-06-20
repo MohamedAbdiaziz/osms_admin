@@ -5,6 +5,8 @@
   require_once("../classes/product.class.php");
   require_once("../classes/stock.class.php");
   require_once("../classes/order.class.php");
+  require_once("../classes/admin.class.php");
+  require_once("../classes/customer.class.php");
   include_once("./connection.php");
 
   // object of category
@@ -50,6 +52,16 @@ elseif(isset($_POST['deleteOrder'])){
 }
 elseif(isset($_POST['updateOrderStatus'])){
   updateOrderStatus();
+}elseif(isset($_POST['addAdmin'])){
+  addAdmin();
+}elseif(isset($_GET['adminDelete'])){
+  adminDelete();
+}elseif(isset($_POST['updateAdmin'])){
+  updateAdmin();
+}elseif(isset($_POST['updateCustomer'])){
+  updateCustomer();
+}elseif(isset($_GET['customerDelete'])){
+  customerDelete();
 }
 else{
     $_SESSION['Action']= "Failed To create category";
@@ -537,6 +549,87 @@ else{
       header("location: ../page/order.php");
     }
     
+  }
+  function addAdmin()
+  {
+    $admin = new Admin();
+    $admin->setname($_POST['adminName']);
+    $admin->setemail($_POST['adminEmail']);
+    $admin->setphone($_POST['adminPhone']);
+    $admin->setaddress($_POST['adminAddress']);
+    // $admin->setstatus($_POST['adminStatus']);
+    $admin->setpassword(password_hash($_POST['adminPassword'], PASSWORD_BCRYPT));
+    $admin->setRole($_POST['adminRole']);
+
+    $result = $admin->InsertAdmin();
+
+    if ($result == "Success") {
+        $_SESSION['Action'] = "<script>"."alert('Success, Admin Added.')"."</script>";
+    } else {
+        $_SESSION['Failed'] = "<script>"."alert('Failed, Admin Add.')"."</script>";
+    }
+    header("Location: ../forms/admin.php");
+    exit();
+  }
+  function updateAdmin()
+  {
+    $admin = new Admin();
+    $admin->setId($_POST['adminID']);
+    $admin->setname($_POST['adminName']);
+    $admin->setemail($_POST['adminEmail']);
+    $admin->setphone($_POST['adminPhone']);
+    $admin->setaddress($_POST['adminAddress']);
+    $admin->setstatus($_POST['adminStatus']);
+    $admin->setpassword(password_hash($_POST['adminPassword'], PASSWORD_BCRYPT));
+    $admin->setRole($_POST['adminRole']);
+
+    $result = $admin->UpdateAdmin();
+
+    if ($result) {
+        $_SESSION['Action'] = "<script>"."alert('Success, Admin Updated.')"."</script>";
+    } else {
+        $_SESSION['Failed'] = "<script>"."alert('Failed, Admin Update.')"."</script>";
+    }
+    header("Location: ../page/admin_management.php");
+    exit();
+  }
+  function adminDelete(){
+    $admin = new Admin();
+    $admin->setId($_GET['adminDelete']);
+    $result = $admin->RemoveAdmin();
+    if ($result == "Success") {
+        $_SESSION['Action'] = "<script>"."alert('Success, Admin Deleted.')"."</script>";
+    } else {
+        $_SESSION['Failed'] = "<script>"."alert('Failed, Admin Delete.')"."</script>";
+    }
+    header("Location: ../page/admin_management.php");
+    exit();
+  }
+  function updateCustomer(){
+    $customer = new Customer();
+    $customer->setUsername($_POST['customerUsername']);
+    $customer->setStatus($_POST['status']);
+    $result = $customer->UpdateCustomer();
+    if ($result) {
+        $_SESSION['Action'] = "<script>"."alert('Success, Customer Updated.')"."</script>";
+    } else {
+        $_SESSION['Failed'] = "<script>"."alert('Failed, Customer Update.')"."</script>";
+    }
+    header("Location: ../page/customer_management.php");
+    exit();
+  }
+  function customerDelete()
+  {
+    $customer = new Customer();
+    $customer->setUsername($_GET['customerDelete']);
+    $result = $customer->RemoveCustomer();
+    if ($result) {
+        $_SESSION['Action'] = "<script>"."alert('Success, Customer Deleted.')"."</script>";
+    } else {
+        $_SESSION['Failed'] = "<script>"."alert('Failed, Customer Delete.')"."</script>";
+    }
+    header("Location: ../page/customer_management.php");
+    exit();
   }
 
 

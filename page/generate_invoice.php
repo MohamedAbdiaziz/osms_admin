@@ -71,7 +71,7 @@ function generateInvoiceHTML($order, $orderItems) {
                                 </td>
                             </tr>
                             <tr><td></td>
-                                <td><button class="print-button" onclick="window.print()">Print</button></td>
+                                <td><button id="printButton" class="print-button" onclick="window.print()">Print</button></td>
                             </tr>
                         </table>
                     </td>
@@ -108,6 +108,17 @@ function generateInvoiceHTML($order, $orderItems) {
                 </tr>
             </table>
         </div>
+        <script>
+            // Show the print button only if printing is supported
+            // window.onbeforeprint = function() {
+            //   document.getElementById('printButton').style.display = 'inline-block';
+            // };
+
+            // Hide the print button after printing is complete
+            window.onbeforeprint = function() {
+              document.getElementById('printButton').style.display = 'none';
+            };
+        </script>
     </body>
     </html>
     <?php

@@ -1,0 +1,53 @@
+[33mcommit cf389f64ca75bfb89dd95d56ade5c5b5c8dc5b0e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: TestingUser <maxamedcabdicasiis910@gmail.com>
+Date:   Mon Jun 17 15:47:49 2024 +0300
+
+    waxaa ku soo daray qeybta Generate invoice ka marka lajoogo adminka
+
+[33mcommit 08501b477d9a5fd09988597766825abdf23714a9[m
+Author: TestingUser <maxamedcabdicasiis910@gmail.com>
+Date:   Mon Jun 17 14:13:01 2024 +0300
+
+    waxaa ku soo daray transaction manage iyo order & delivery manage page oo dhameystiran
+
+[33mcommit 991e705b2a1ca21c29157ac6774bb54fbb598b92[m
+Author: TestingUser <maxamedcabdicasiis910@gmail.com>
+Date:   Fri Jun 14 05:08:50 2024 +0300
+
+    waxaa ku soo daray qeybta dashboard ka oo dhameystiran
+
+[33mcommit 79d6c1299ac903c6bb92f446e23f45baa7054843[m
+Author: TestingUser <maxamedcabdicasiis910@gmail.com>
+Date:   Tue Jun 4 12:14:34 2024 +0300
+
+    Waxaa kusoo daray stock list update iyo delete
+
+[33mcommit aa1a63045f3ffd3f093277a82c922b9e635af0a9[m
+Author: TestingUser <maxamedcabdicasiis910@gmail.com>
+Date:   Mon Jun 3 22:36:24 2024 +0300
+
+    waxaa ku soo daray product update, io stock list
+
+[33mcommit 17b97c68b1069369b68b23eeb6d98ff29536b770[m
+Author: TestingUser <maxamedcabdicasiis910@gmail.com>
+Date:   Mon Jun 3 12:26:50 2024 +0300
+
+    waxaa ku soo daray product insert, list, delete, iyo database backup file
+
+[33mcommit 048b377c0d39c8ac55590981c9b4c8476ae0dbdd[m
+Author: TestingUser <maxamedcabdicasiis910@gmail.com>
+Date:   Sat Jun 1 19:49:02 2024 +0300
+
+    waxaa ku soo daray qeybta updateka ee categoryka
+
+[33mcommit b9ed6cc897fb43c015539dbdeac6d2428697eabe[m
+Author: TestingUser <maxamedcabdicasiis910@gmail.com>
+Date:   Thu May 30 23:21:47 2024 +0300
+
+    waxaan ku soo daray category form in lagu xareeyo database ka iyo in lasoo bandhigo iyo in la delete kareeyo
+
+[33mcommit 4beed95f3d752ec234d474f012b67b3141cda803[m
+Author: TestingUser <maxamedcabdicasiis910@gmail.com>
+Date:   Tue May 28 08:56:51 2024 +0300
+
+    OSMS admin Design
