@@ -1,3 +1,4 @@
+<?php $title = "Customer Page" ?>
 <?php 
 include_once("../component/headerhtml.php");
 

@@ -42,27 +42,31 @@ class Admin
         $this->dbConn = $db->connect();
     }
 
-    public function InsertAdmin()
+   public function InsertAdmin()
     {
-        $sql = "INSERT INTO admins (name, email, password, phone, address, status, RegisteredDate,Role) VALUES (:name, :email, :password, :phone, :address, 'Active', now(),:role)";
+        $sql = "INSERT INTO admins (Username, Email, Password, status,Role) VALUES (:name, :email, :password,'Active', :role)";
         $stmt = $this->dbConn->prepare($sql);
         $stmt->bindParam(':name', $this->name);
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':password', $this->password);
-        $stmt->bindParam(':phone', $this->phone);
-        $stmt->bindParam(':address', $this->address);
         $stmt->bindParam(':role', $this->role);
-
-        if ($stmt->execute()) {
+        try{
+            $stmt->execute();
             return "Success";
-        } else {
-            return "Failed";
+        } catch (PDOException $e) {
+            if ($e->errorInfo[1] == 1062) { // Check if error is due to duplicate entry
+               return 1062;
+            } else {
+                return "Error: " . $e->getMessage();
+            }
+            header("location: ../forms/admin.php");
+            exit();
         }
     }
 
     public function RemoveAdmin()
     {
-        $sql = "DELETE FROM admins WHERE id = :id";
+        $sql = "DELETE FROM admins WHERE ID = :id";
         $stmt = $this->dbConn->prepare($sql);
         $stmt->bindParam(':id', $this->id);
 
@@ -84,15 +88,14 @@ class Admin
 
     public function UpdateAdmin()
     {
-        $sql = "UPDATE admins SET name = :name, email = :email, phone = :phone, address = :address, status = :status, Role=:role WHERE id = :id";
+        $sql = "UPDATE admins SET Username = :name, Email = :email, status = :status, Role=:role, Password =:password WHERE ID = :id";
         $stmt = $this->dbConn->prepare($sql);
         $stmt->bindParam(':id', $this->id);
         $stmt->bindParam(':name', $this->name);
         $stmt->bindParam(':email', $this->email);
-        $stmt->bindParam(':phone', $this->phone);
-        $stmt->bindParam(':address', $this->address);
         $stmt->bindParam(':status', $this->status);
         $stmt->bindParam(':role', $this->role);
+        $stmt->bindParam(':password', $this->password);
 
         if ($stmt->execute()) {
             return true;
@@ -111,7 +114,7 @@ class Admin
     }
     public function getAdminById($id)
     {
-        $sql = "SELECT * FROM admins WHERE id = :ID";
+        $sql = "SELECT * FROM admins WHERE ID = :ID";
         $stmt = $this->dbConn->prepare($sql);
         $stmt->bindParam(':ID', $id);
         $stmt->execute();

@@ -5,6 +5,19 @@
     private $dbName = "db_osms";
     private $user = "root";
     private $pass = "";
+    public  function  getDbName(){
+      return $this->dbName;
+    }
+     public  function  getUser(){
+      return $this->user;
+    }
+ public  function  getHost(){
+      return $this->host;
+    }public  function  getPassword(){
+      return $this->pass;
+    }
+
+
 
 
     public function connect(){

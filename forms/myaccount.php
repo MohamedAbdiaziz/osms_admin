@@ -1,18 +1,15 @@
+<?php $title = "Manage Account" ?>
 <?php 
 require_once("../classes/admin.class.php");
 include_once("../component/headerhtml.php");
 include_once("../component/sidebar.php");
 
-if (!isset($_SESSION['adminID'])) {
-    header("Location: login.php");
-    exit();
-}
 
-$adminID = $_SESSION['adminID'];
+$adminID = $_SESSION['admin_id'];
 $objAdmin = new Admin();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $currentPassword = $_POST['currentPassword'];
+    $currentPassword = md5($_POST['currentPassword']);
     $newPassword = $_POST['newPassword'];
     $confirmPassword = $_POST['confirmPassword'];
 
@@ -24,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // Check current password
         $admin = $objAdmin->getAdminById($adminID);
-        if (!password_verify($currentPassword, $admin['password']) && $admin['password'] !== md5($currentPassword)) {
+        if ($currentPassword !== $admin['Password']) {
             $error = "Current password is incorrect.";
             
         } else {

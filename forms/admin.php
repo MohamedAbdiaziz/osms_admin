@@ -1,3 +1,4 @@
+<?php $title = "Admin Form" ?>
 <?php
 require_once("../classes/admin.class.php");
 include_once("../component/headerhtml.php");
@@ -21,8 +22,9 @@ include_once("../component/sidebar.php");
     }
     ?>
     <!-- Navbar end -->
-
     <div class="container-fluid">
+<?php if($_SESSION['admin_role'] === "Super Admin"){?>
+        
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Add Admin</h3>
@@ -37,14 +39,7 @@ include_once("../component/sidebar.php");
                         <label for="adminEmail" class="form-label">Email</label>
                         <input type="email" class="form-control" name="adminEmail" id="adminEmail" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="adminPhone" class="form-label">Phone</label>
-                        <input type="text" class="form-control" name="adminPhone" id="adminPhone" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="adminAddress" class="form-label">Address</label>
-                        <textarea class="form-control" name="adminAddress" id="adminAddress" required></textarea>
-                    </div>
+                    
                     <div class="mb-3">
                         <label for="adminPassword" class="form-label">Password</label>
                         <input type="password" class="form-control" name="adminPassword" id="adminPassword" required>
@@ -61,7 +56,11 @@ include_once("../component/sidebar.php");
                 </form>
             </div>
         </div>
+        <?php }else{?>
+            <p>Only Super User Can Add User or Manage</p>
+        <?php }?>
     </div>
+
 </div>
 
 <!-- Footer Start -->

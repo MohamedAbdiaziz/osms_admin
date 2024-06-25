@@ -63,6 +63,9 @@ elseif(isset($_POST['updateOrderStatus'])){
 }elseif(isset($_GET['customerDelete'])){
   customerDelete();
 }
+elseif(isset($_POST['login_process'])){
+  login_process();
+}
 else{
     $_SESSION['Action']= "Failed To create category";
   }
@@ -565,8 +568,11 @@ else{
 
     if ($result == "Success") {
         $_SESSION['Action'] = "<script>"."alert('Success, Admin Added.')"."</script>";
-    } else {
+    } elseif($result  == 1062) {
+        $_SESSION['Failed'] = "<script>"."alert('Username or Email already exists. Please choose a different username or email.')"."</script>";
+    }else{
         $_SESSION['Failed'] = "<script>"."alert('Failed, Admin Add.')"."</script>";
+
     }
     header("Location: ../forms/admin.php");
     exit();
@@ -577,10 +583,8 @@ else{
     $admin->setId($_POST['adminID']);
     $admin->setname($_POST['adminName']);
     $admin->setemail($_POST['adminEmail']);
-    $admin->setphone($_POST['adminPhone']);
-    $admin->setaddress($_POST['adminAddress']);
     $admin->setstatus($_POST['adminStatus']);
-    $admin->setpassword(password_hash($_POST['adminPassword'], PASSWORD_BCRYPT));
+    $admin->setpassword(md5($_POST['adminPassword']));
     $admin->setRole($_POST['adminRole']);
 
     $result = $admin->UpdateAdmin();
@@ -630,6 +634,54 @@ else{
     }
     header("Location: ../page/customer_management.php");
     exit();
+  }
+  function login_process(){
+      
+
+    require_once("../db/DbConnect.php");
+
+    // Check if the form is submitted
+    
+    $username = $_POST['username'];
+    $password = md5($_POST['password']);
+
+    try {
+        $db = new DbConnect();
+        $dbConn = $db->connect();
+
+        $sql = "SELECT * FROM admins WHERE Username = :username AND Status= 'Active'";
+        $stmt = $dbConn->prepare($sql);
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($admin) {
+            if ($password === $admin['Password']) {
+                // Password is correct
+                $_SESSION['admin_id'] = $admin['ID'];
+                $_SESSION['admin_username'] = $admin['Username'];
+                $_SESSION['admin_role'] = $admin['Role'];
+                header("Location: ../page/index.php");
+                
+            } else {
+
+                $_SESSION['error'] = "Invalid username or password.";
+                 header("Location: ../page/authentication-login.php");
+                
+            }
+        } else {
+            $_SESSION['error'] = "Invalid username or password.";
+             header("Location: ../page/authentication-login.php");
+            
+        }
+    } catch (PDOException $e) {
+        $_SESSION['error'] = "Error: " . $e->getMessage();
+         header("Location: ../page/authentication-login.php");
+        
+    }
+    exit();
+    
+
   }
 
 

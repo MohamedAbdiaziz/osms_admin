@@ -1,14 +1,17 @@
 <?php include_once("../backend/connection.php");?>
+<?php include_once("../backend/check_login.php");?>
+
 
 <?php require_once("../classes/product.class.php");?>
+
 <!doctype html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modernize Free</title>
-  <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+  <title>Online Optical Shop - <?php echo $title;?></title>
+  <!-- <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" /> -->
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"> -->
   <!-- <link rel="stylesheet" href="../assets/DataTables/dataTables.bootstrap5.css"> -->

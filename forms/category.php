@@ -1,3 +1,4 @@
+<?php $title = "Category Form" ?>
 <?php 
 include_once("../component/headerhtml.php");
 

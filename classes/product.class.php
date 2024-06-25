@@ -154,7 +154,7 @@
                 SUM(CASE WHEN YEAR(created_at) = YEAR(CURDATE()) THEN amount ELSE 0 END) AS current_year_sum,
                 SUM(CASE WHEN YEAR(created_at) = YEAR(CURDATE()) - 1 THEN amount ELSE 0 END) AS last_year_sum,
               SUM(CASE WHEN YEAR(created_at) = YEAR(cURDATE()) THEN amount ELSE 0 END) AS Current_year_amount
-            FROM transactions
+            FROM transactions WHERE status = 'completed'
         ) AS totals;
         ";
       $stmt = $this->dConn->prepare($sql);
@@ -170,7 +170,7 @@
                 SUM(CASE WHEN MONTH(created_at) = MONTH(CURDATE()) THEN amount ELSE 0 END) AS current_month_sum,
                 SUM(CASE WHEN MONTH(created_at) = MONTH(CURDATE()) - 1 THEN amount ELSE 0 END) AS last_month_sum,
               SUM(CASE WHEN MONTH(created_at) = MONTH(cURDATE()) THEN amount ELSE 0 END) AS Current_month_amount
-            FROM transactions
+            FROM transactions WHERE status = 'completed'
         ) AS totals;
         ";
       $stmt = $this->dConn->prepare($sql);

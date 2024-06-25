@@ -1,3 +1,4 @@
+<?php $title = "Stocks page" ?>
 <?php 
 require_once("../classes/stock.class.php");
 require_once("../classes/product.class.php");

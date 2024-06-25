@@ -2,8 +2,9 @@
       <!-- Sidebar scroll-->
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="./index.html" class="text-nowrap logo-img">
-            <img src="../assets/images/logos/dark-logo.svg" width="180" alt="" />
+          <a class="text-nowrap logo-text">
+            <h1>OSMS</h1>
+            <p>Online Optical Shop</p>
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
@@ -100,33 +101,35 @@
             </li> -->
             <!-- End Order & Delivery Cap -->
 
-            <!-- Customer & User cap -->
-            <li class="nav-small-cap">
-              <i class="fas fa-ellipsis-h nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">Customer & User</span>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="<?php echo $URL?>customer_management.php" aria-expanded="false">
-                <span>
-                  <i class="fas fa-users"></i>
-                </span>
-                <span class="hide-menu">Manage Customer</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="<?php echo $URL?>admin_management.php" aria-expanded="false">
-                <span>
-                  <i class="fas fa-user"></i>
-                </span>
-                <span class="hide-menu">Manage User</span>
-              </a>
-            </li>
-            <!-- End Customer & User Cap -->
+            <?php if($_SESSION['admin_role'] === "Super Admin"){?>
+              <!-- Customer & User cap -->
+              <li class="nav-small-cap">
+                <i class="fas fa-ellipsis-h nav-small-cap-icon fs-4"></i>
+                <span class="hide-menu">Customer & User</span>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="<?php echo $URL?>customer_management.php" aria-expanded="false">
+                  <span>
+                    <i class="fas fa-users"></i>
+                  </span>
+                  <span class="hide-menu">Manage Customer</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="<?php echo $URL?>admin_management.php" aria-expanded="false">
+                  <span>
+                    <i class="fas fa-user"></i>
+                  </span>
+                  <span class="hide-menu">Manage User</span>
+                </a>
+              </li>
+              <!-- End Customer & User Cap -->
+            <?php }?>
 
             <!-- Report & Backup cap -->
-            <li class="nav-small-cap">
+            <!-- <li class="nav-small-cap">
               <i class="fas fa-ellipsis-h nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">Report & Backup</span>
+              <span class="hide-menu">Backup</span>
             </li>
             <li class="sidebar-item">
               <a class="sidebar-link" href="./index.html" aria-expanded="false">
@@ -145,13 +148,13 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./index.html" aria-expanded="false">
+              <a class="sidebar-link" href="../backend/backup.php" aria-expanded="false">
                 <span>
                   <i class="fas fa-database"></i>
                 </span>
                 <span class="hide-menu">Backup</span>
               </a>
-            </li>
+            </li> -->
             <!-- End Report & Backup Cap -->
           </ul>
         </nav>

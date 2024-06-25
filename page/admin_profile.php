@@ -1,16 +1,14 @@
+<?php $title = "Profile Page" ?>
 <?php 
+
 require_once("../classes/admin.class.php");
 include_once("../component/headerhtml.php");
 include_once("../component/sidebar.php");
-$_SESSION['adminID']="6";
-if (!isset($_SESSION['adminID'])) {
-    echo "<script>window.location.href = '".$URL."authentication-login.php';</script>";
-    exit();
-}
 
-$adminID = $_SESSION['adminID'];
+
+$admin_id = $_SESSION['admin_id'];
 $objAdmin = new Admin();
-$admin = $objAdmin->getAdminById($adminID);
+$admin = $objAdmin->getAdminById($admin_id);
 ?>
 
 <div class="body-wrapper">
@@ -46,17 +44,14 @@ $admin = $objAdmin->getAdminById($adminID);
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>Admin ID</th>
-                                <td><?= $admin['id']?></td>
-                            </tr>
+                            
                             <tr>
                                 <th>Admin Name</th>
-                                <td><?= $admin['name']?></td>
+                                <td><?= $admin['Username']?></td>
                             </tr>
                             <tr>
                                 <th>Admin Email</th>
-                                <td><?= $admin['email']?></td>
+                                <td><?= $admin['Email']?></td>
                             </tr>
                             <tr>
                                 <th>Role</th>

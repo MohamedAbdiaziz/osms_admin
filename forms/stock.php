@@ -1,3 +1,4 @@
+<?php $title = "Stock Form" ?>
 <?php 
 include_once("../component/headerhtml.php");
 include_once("../component/sidebar.php");

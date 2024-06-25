@@ -1,3 +1,4 @@
+<?php $title = "Category Page" ?>
 <?php 
 require_once("../classes/category.class.php");
 include_once("../component/headerhtml.php");

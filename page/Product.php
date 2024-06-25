@@ -1,3 +1,4 @@
+<?php $title = "Products Page" ?>
 <?php 
 require_once("../classes/product.class.php");
 require_once("../classes/category.class.php");

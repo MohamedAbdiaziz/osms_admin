@@ -1,3 +1,4 @@
+<?php $title = "Customer Manage PAge" ?>
 <?php 
 require_once("../classes/customer.class.php");
 include_once("../component/headerhtml.php");

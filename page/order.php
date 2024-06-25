@@ -1,4 +1,6 @@
+<?php $title = "Order" ?>
 <?php 
+
 include_once("../component/headerhtml.php");
 include_once("../component/sidebar.php");
 require_once("../classes/order.class.php");
