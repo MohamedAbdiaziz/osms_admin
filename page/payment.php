@@ -42,7 +42,7 @@ $transactions = $objTrans->getAllTransactions();
                 <tr>
                   <td><?php echo $row['id']; ?></td>
                   <td><?php echo $row['customer_id']; ?></td>
-                  <td><?php echo $row['stripe_session_id']; ?></td>
+                  <td><?php echo $row['Description']; ?></td>
                   <td><?php echo $row['amount']; ?></td>
                   <td><?php echo $row['created_at']; ?></td>
                   <td><?php echo $row['status']; ?></td>

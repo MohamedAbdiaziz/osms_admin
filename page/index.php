@@ -276,7 +276,7 @@
                                     <tr>
                                         <td class="border-bottom-0"><h6 class="fw-semibold mb-0"><span class="fw-normal"><?php echo htmlspecialchars($row['id']); ?></h6></span></td>
                                         <td class="border-bottom-0"><h6 class="fw-semibold mb-0"><span class="fw-normal"><?php echo htmlspecialchars($row['customer_id']); ?></span></h6></td>
-                                        <td class="border-bottom-0"><h6 class="fw-semibold mb-0"><span class="fw-normal"><?php echo htmlspecialchars(substr($row['stripe_session_id'],0,10)."***"); ?></span></h6></td>
+                                        <td class="border-bottom-0"><h6 class="fw-semibold mb-0"><span class="fw-normal"><?php echo htmlspecialchars(substr($row['Description'],0,10)."***"); ?></span></h6></td>
                                         <td class="border-bottom-0"><h6 class="fw-semibold mb-0"><span class="fw-normal">$<?php echo number_format($row['amount'], 2); ?></span></h6></td>
                                         <td class="border-bottom-0"><h6 class="fw-semibold mb-0"><span class="fw-normal"><?php echo htmlspecialchars($row['created_at']); ?></span></h6></td>
                                         <td class="border-bottom-0"><h6 class="fw-semibold mb-0"><span class="badge <?php if($row['status'] == "completed"){echo 'bg-success';}else{echo "bg-danger";}?> rounded-3 fw-semibold"><?php echo htmlspecialchars($row['status']); ?></span></h6></td>

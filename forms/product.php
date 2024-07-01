@@ -57,9 +57,7 @@ include_once("../component/sidebar.php");
             <label for="prodType" class="form-label">Product Type</label>
             <select class="form-control" name="prodType" id="prodType" required>
               <option value="Glasses">Glasses</option>
-              <option value="Contact Lenses">Contact Lenses</option>
               <option value="Sunglasses">Sunglasses</option>
-              <option value="Accessories">Accessories</option>
             </select>
           </div>
           <div class="mb-3">

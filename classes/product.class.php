@@ -179,7 +179,7 @@
       return $products;
     }
     public function TransactionRecent(){
-      $sql = "SELECT id, customer_id, stripe_session_id, amount, created_at, status FROM transactions  ORDER BY `transactions`.`id` DESC LIMIT 4 ";
+      $sql = "SELECT * FROM transactions  ORDER BY `transactions`.`id` DESC LIMIT 4 ";
       $stmt = $this->dConn->prepare($sql);
       $stmt->execute();
       $transaction = $stmt->fetchAll(PDO::FETCH_ASSOC);

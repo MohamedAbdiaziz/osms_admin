@@ -84,7 +84,7 @@
               <span class="hide-menu">Order & Delivery</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./order.php" aria-expanded="false">
+              <a class="sidebar-link" href="<?php echo $URL?>order.php" aria-expanded="false">
                 <span>
                   <i class="fas fa-shopping-cart"></i>
                 </span>
@@ -127,27 +127,27 @@
             <?php }?>
 
             <!-- Report & Backup cap -->
-            <!-- <li class="nav-small-cap">
+            <li class="nav-small-cap">
               <i class="fas fa-ellipsis-h nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">Backup</span>
+              <span class="hide-menu">Report</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./index.html" aria-expanded="false">
+              <a class="sidebar-link" href="<?php echo $URL?>inventory_report.php" aria-expanded="false">
                 <span>
                   <i class="fas fa-file-invoice"></i>
                 </span>
-                <span class="hide-menu">Generate Invoice</span>
+                <span class="hide-menu">Inventory Report</span>
               </a>
             </li>
-            <li class="sidebar-item">
+            <!-- <li class="sidebar-item">
               <a class="sidebar-link" href="./index.html" aria-expanded="false">
                 <span>
                   <i class="fas fa-history"></i>
                 </span>
                 <span class="hide-menu">History</span>
               </a>
-            </li>
-            <li class="sidebar-item">
+            </li> -->
+            <!-- <li class="sidebar-item">
               <a class="sidebar-link" href="../backend/backup.php" aria-expanded="false">
                 <span>
                   <i class="fas fa-database"></i>
